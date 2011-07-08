@@ -20,7 +20,7 @@ sub run {
 
 sub load_envfile {
     my ($self, $file) = @_;
-    open my $fh, '<', $file or die "$file $!"; 
+    open my $fh, '<', $file or die "$file: $!\n";
     while (defined (my $line = readline $fh)) {
         chomp $line;
         next if index($line, '#') == 0;

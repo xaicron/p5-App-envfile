@@ -90,4 +90,9 @@ FOO = bar
 
 ENV
 
+subtest 'file not found' => sub {
+    eval { App::envfile->new->load_envfile('foo.bar') };
+    like $@, qr/^foo.bar: No such file or directory/;
+};
+
 done_testing;
