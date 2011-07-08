@@ -31,6 +31,8 @@ all_pod_files_spelling_ok('lib');
 
 __DATA__
 App::envfile
+envdir
+djb's
 
 # personal section
 xaicron

@@ -1,0 +1,19 @@
+#!perl
+
+use strict;
+use warnings;
+use App::envfile;
+
+App::envfile->new->run(@ARGV);
+
+__END__
+
+=head1 NAME
+
+  envfile - runs another program with environment modified according to envfile
+
+=head1 SYNOPSIS
+
+  envfile file commands
+
+=cut
