@@ -40,7 +40,8 @@ sub _split_line {
 sub usage {
     my $self = shift;
 print << 'USAGE';
-Usage: evnfile [options] file command
+Usage: evnfile file commands
+
 USAGE
     exit 1;
 }
