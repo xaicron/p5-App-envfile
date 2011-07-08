@@ -59,10 +59,10 @@ App::envfile - runs another program with environment modified according to envfi
 
 =head1 SYNOPSIS
 
-  $ cat > envfile
+  $ cat > foo.env
   FOO=bar
   HOGE=fuga
-  $ envfile envfile perl -le 'print "$ENV{FOO}, $ENV{HOGE}"'
+  $ envfile foo.env perl -le 'print "$ENV{FOO}, $ENV{HOGE}"'
   bar, fuga
 
 like
