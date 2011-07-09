@@ -12,7 +12,7 @@ BEGIN {
             while (defined (my $line = readline $pipe)) {
                 $buf .= $line;
             }
-            close $pipe or die $!;
+            close $pipe;
             return $buf;
         }
         else {
