@@ -32,7 +32,7 @@ sub load_envfile {
 
 sub _split_line {
     my ($self, $line) = @_;
-    my ($key, $value) = map { s/^\s+|\s+$//g; $_ } split '=', $line, 2;
+    my ($key, $value) = map { my $str = $_; $str =~ s/^\s+|\s+$//g; $str } split '=', $line, 2;
     return $key, $value;
 }
 
