@@ -11,8 +11,7 @@ sub new {
 }
 
 sub run {
-    my ($self, @args) = @_;
-    my $envfile = shift @args;
+    my ($self, $envfile, @args) = @_;
     $self->usage unless defined $envfile;
     $self->load_envfile($envfile);
     system(@args);
