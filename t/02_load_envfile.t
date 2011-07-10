@@ -91,8 +91,13 @@ FOO = bar
 ENV
 
 subtest 'file not found' => sub {
+    no warnings 'redefine';
+    *App::envfile::usage = sub {
+        ok "call this method", "call usage";
+        die "oops";
+    };
     eval { App::envfile->new->load_envfile('foo.bar') };
-    like $@, qr/^foo.bar: No such file or directory/;
+    like $@, qr/oops/;
 };
 
 done_testing;

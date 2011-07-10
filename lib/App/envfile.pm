@@ -19,6 +19,7 @@ sub run {
 
 sub load_envfile {
     my ($self, $file) = @_;
+    $self->usage unless -f $file;
     open my $fh, '<', $file or die "$file: $!\n";
     while (defined (my $line = readline $fh)) {
         chomp $line;
