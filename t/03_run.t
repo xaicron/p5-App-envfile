@@ -3,8 +3,8 @@ use warnings;
 use Test::More;
 
 BEGIN {
-    # capture system()
-    *CORE::GLOBAL::system = sub {
+    # capture exec()
+    *CORE::GLOBAL::exec = sub {
         my @args = @_;
         my $pid = open my $pipe, '-|';
         if ($pid) {
@@ -16,7 +16,7 @@ BEGIN {
             return $buf;
         }
         else {
-            exec @args or die $!;
+            CORE::exec @args or die $!;
         }
     };
 }

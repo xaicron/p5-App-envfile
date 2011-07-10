@@ -14,7 +14,7 @@ sub run {
     my ($self, $envfile, @args) = @_;
     $self->usage unless defined $envfile;
     $self->load_envfile($envfile);
-    system(@args);
+    exec(@args);
 }
 
 sub load_envfile {
@@ -88,7 +88,7 @@ Create App::envfile instance.
 
 Runs another program.
 
-  my $exit_code = $envf->run($envfile, @commands);
+  $envf->run($envfile, @commands);
 
 =item C<< load_envfile($envfile) >>
 
