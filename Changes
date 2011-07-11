@@ -1,4 +1,7 @@
 Revision history for Perl extension App::envfile
 
+0.02  Tue Jul 12 00:57:36 2011
+    - refactor (advised by tokuhirom++)
+
 0.01  Mon Jul 11 00:19:37 2011
     - original version
