@@ -23,40 +23,26 @@ BEGIN {
 
 use App::envfile;
 
-sub test_run {
+sub test_run_with_env {
     my %specs = @_;
     my ($input, $expects, $desc) = @specs{qw/input expects desc/};
-    my ($envfile, $envmap) = @$input;
-
-    local %ENV = %ENV;
-
-    {
-        no warnings 'redefine';
-        *App::envfile::load_envfile = sub {
-            my ($self, $file) = @_;
-            is $file, $envfile, 'load_envfile ok';
-            for my $key (sort keys %$envmap) {
-                $ENV{$key} = $envmap->{$key};
-            }
-        };
-    }
-
-    my $command = join ',', map { "\$ENV{$_}" } sort keys %$envmap;
+    my $command = join ',', map { "\$ENV{$_}" } sort keys %$input;
 
     subtest $desc => sub {
         my $envf = App::envfile->new;
-        $envf->run($envfile, $^X, '-e', "print qq|$command|");
+        my $buf = $envf->run_with_env($input, [$^X, '-e', "print qq|$command|"]);
+        is $buf, $expects, 'child ok';
     };
 }
 
-test_run(
-    input   => [file => { FOO => 'bar' }],
+test_run_with_env(
+    input   => { FOO => 'bar' },
     expects => 'bar',
     desc    => 'with FOO',
 );
 
-test_run(
-    input   => [file => { FOO => 'bar', BAR => 'baz' }],
+test_run_with_env(
+    input   => { FOO => 'bar', BAR => 'baz' },
     expects => 'baz,bar',
     desc    => 'with FOO, BAR',
 );

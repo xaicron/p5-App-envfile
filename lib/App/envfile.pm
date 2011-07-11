@@ -10,40 +10,35 @@ sub new {
     bless {}, $class;
 }
 
-sub run {
-    my ($self, $envfile, @args) = @_;
-    $self->usage unless defined $envfile;
-    $self->load_envfile($envfile);
-    exec(@args);
+sub run_with_env {
+    my ($self, $env, $commands) = @_;
+    local %ENV = %ENV;
+    for my $key (keys %$env) {
+        $ENV{$key} = $env->{$key};
+    }
+    exec(@$commands);
 }
 
-sub load_envfile {
+sub parse_envfile {
     my ($self, $file) = @_;
-    $self->usage unless -f $file;
     open my $fh, '<', $file or die "$file: $!\n";
+    my $env = {};
     while (defined (my $line = readline $fh)) {
         chomp $line;
         next if index($line, '#') == 0;
         next if $line =~ /^\s*$/;
-        my ($key, $value) = $self->_split_line($line);
-        $ENV{$key} = $value;
+        my ($key, $value) = $self->_parse_line($line);
+        $env->{$key} = $value;
     }
     close $fh;
+
+    return $env;
 }
 
-sub _split_line {
+sub _parse_line {
     my ($self, $line) = @_;
     my ($key, $value) = map { my $str = $_; $str =~ s/^\s+|\s+$//g; $str } split '=', $line, 2;
     return $key, $value;
-}
-
-sub usage {
-    my $self = shift;
-print << 'USAGE';
-Usage: evnfile file commands
-
-USAGE
-    exit 1;
 }
 
 1;
@@ -85,29 +80,24 @@ Create App::envfile instance.
 
   my $envf = App::envfile->new();
 
-=item C<< run($envfile, @commands) >>
+=item C<< run_with_env(\%env, \@commands) >>
 
-Runs another program.
+Runs another program with environment modified according to C<< \%env >>.
 
-  $envf->run($envfile, @commands);
+  $envf->run_with_env(\%env, \@commands);
 
-=item C<< load_envfile($envfile) >>
+=item C<< parse_envfile($envfile) >>
 
-Sets %ENV from file.
+Parse the C<< envfile >>. Returned value is HASHREF.
 
-  $envf->load_envfile($envfile);
+  my $env = $envf->parse_envfile($envfile);
 
 Supported file format are:
 
   KEY=VALUE
+  # comment
   KEY2=VALUE
   ...
-
-=item C<< usage() >>
-
-Show usage.
-
-  $envf->usage();
 
 =back
 

@@ -4,7 +4,26 @@ use strict;
 use warnings;
 use App::envfile;
 
-App::envfile->new->run(@ARGV);
+main(@ARGV);
+exit;
+
+sub main {
+    my ($envfile, @commands) = @_;
+    usage() unless -f $envfile;
+
+    my $envf = App::envfile->new;
+    my $env = $envf->parse_envfile($envfile);
+    $envf->run_with_env($env, \@commands);
+}
+
+sub usage {
+    my $self = shift;
+print << 'USAGE';
+Usage: evnfile file commands
+
+USAGE
+    exit 1;
+}
 
 __END__
 
