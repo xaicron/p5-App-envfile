@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use Test::More;
 
+plan skip_all => 'MSWin32 not process' if $^O eq 'MSWin32';
+
 BEGIN {
     # capture exec()
     *CORE::GLOBAL::exec = sub {

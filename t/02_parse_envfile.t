@@ -89,7 +89,7 @@ ENV
 
 subtest 'file not found' => sub {
     eval { App::envfile->new->parse_envfile('foo.bar') };
-    like $@, qr/No such file or directory/;
+    ok $@, 'throw error';
 };
 
 done_testing;
