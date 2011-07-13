@@ -1,5 +1,8 @@
 Revision history for Perl extension App::envfile
 
+0.03  Thu Jul 14 00:23:51 2011
+    - suppress warnings on envfile
+
 0.02  Tue Jul 12 00:57:36 2011
     - refactor (advised by tokuhirom++)
 
