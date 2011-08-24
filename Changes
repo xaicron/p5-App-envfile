@@ -1,5 +1,9 @@
 Revision history for Perl extension App::envfile
 
+0.04  Thu Aug 25 01:07:53 2011
+    - workaround for Test::Builder2
+    - fix: confusing error messages
+
 0.03  Thu Jul 14 00:23:51 2011
     - suppress warnings on envfile
 
