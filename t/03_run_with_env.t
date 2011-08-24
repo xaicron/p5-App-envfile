@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use t::Util;
 
 plan skip_all => 'MSWin32 not process' if $^O eq 'MSWin32';
 
@@ -30,7 +31,7 @@ sub test_run_with_env {
     my ($input, $expects, $desc) = @specs{qw/input expects desc/};
     my $command = join ',', map { "\$ENV{$_}" } sort keys %$input;
 
-    subtest $desc => sub {
+    runtest $desc => sub {
         my $envf = App::envfile->new;
         my $buf = $envf->run_with_env($input, [$^X, '-e', "print qq|$command|"]);
         is $buf, $expects, 'child ok';

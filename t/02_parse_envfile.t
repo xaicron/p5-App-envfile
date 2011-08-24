@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use File::Temp qw(tempfile tempdir);
+use t::Util;
 
 use App::envfile;
 
@@ -10,7 +11,7 @@ sub test_parse_envfile {
     my ($input, $expects, $desc) = @specs{qw/input expects desc/};
 
     local $Test::Builder::Level = $Test::Builder::Level + 1;
-    subtest $desc => sub {
+    runtest $desc => sub {
         my $tempfile = write_envfile($input);
         my $envf = App::envfile->new;
         my $got = $envf->parse_envfile($tempfile);
@@ -87,7 +88,7 @@ FOO = bar
 
 ENV
 
-subtest 'file not found' => sub {
+runtest 'file not found' => sub {
     eval { App::envfile->new->parse_envfile('foo.bar') };
     ok $@, 'throw error';
 };
