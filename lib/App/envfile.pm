@@ -105,6 +105,10 @@ Supported file format are:
 
 xaicron E<lt>xaicron@cpan.orgE<gt>
 
+=head1 THANKS TO
+
+tokuhirom
+
 =head1 COPYRIGHT
 
 Copyright 2011 - xaicron
