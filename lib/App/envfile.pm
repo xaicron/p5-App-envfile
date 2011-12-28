@@ -3,6 +3,8 @@ package App::envfile;
 use strict;
 use warnings;
 use 5.008_001;
+use Carp ();
+
 our $VERSION = '0.04';
 
 sub new {
@@ -33,6 +35,18 @@ sub parse_envfile {
     close $fh;
 
     return $env;
+}
+
+sub load_envfile {
+    my ($self, $file) = @_;
+
+    my $hashref = do "$file";
+
+    Carp::croak $@ if $@;
+    Carp::croak $! unless defined $hashref;
+    Carp::croak "$file dose not return hashref" unless ref($hashref) eq 'HASH';
+
+    $hashref;
 }
 
 sub _parse_line {

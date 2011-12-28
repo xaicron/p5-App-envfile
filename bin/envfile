@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use App::envfile;
+use File::Basename ();
 
 main(@ARGV);
 exit;
@@ -12,7 +13,14 @@ sub main {
     usage() unless defined $envfile;
 
     my $envf = App::envfile->new;
-    my $env = $envf->parse_envfile($envfile);
+    my $env;
+    my (undef, undef, $suffix) = File::Basename::fileparse($envfile, qw/perl pl/);
+    if ($suffix) {
+        $env = $envf->load_envfile($envfile);
+    }
+    else {
+        $env = $envf->parse_envfile($envfile);
+    }
     $envf->run_with_env($env, \@commands);
 }
 
