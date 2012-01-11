@@ -10,6 +10,7 @@ exit;
 sub main {
     my ($envfile, @commands) = @_;
     usage() unless defined $envfile;
+    die "$envfile: $!\n" unless -r $envfile;
 
     my $envf = App::envfile->new;
     my $env = $envf->parse_envfile($envfile);

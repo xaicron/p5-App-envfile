@@ -2,8 +2,7 @@ use inc::Module::Install;
 name 'App-envfile';
 all_from 'lib/App/envfile.pm';
 
-#requires '';
-
+recommends 'Data::Encoder', 0.05;
 test_requires 'Test::More', 0.98;
 
 install_script 'bin/envfile';
