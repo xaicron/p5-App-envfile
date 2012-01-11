@@ -1,5 +1,8 @@
 Revision history for Perl extension App::envfile
 
+0.05  Wed Jan 11 19:21:58 2012
+    - support .pl .js .yml config file (suggested by nekokak++)
+
 0.04  Thu Aug 25 01:07:53 2011
     - workaround for Test::Builder2
     - fix: confusing error messages
