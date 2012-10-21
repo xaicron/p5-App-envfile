@@ -1,5 +1,8 @@
 Revision history for Perl extension App::envfile
 
+0.06  Mon Oct 22 01:22:09 2012
+    - repacking (suggested by miyagawa++)
+
 0.05  Wed Jan 11 19:21:58 2012
     - support .pl .js .yml config file (suggested by nekokak++)
 

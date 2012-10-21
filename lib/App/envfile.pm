@@ -5,7 +5,7 @@ use warnings;
 use 5.008_001;
 use Carp ();
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 our $EXTENTIONS_MAP = {
     pl   => 'Perl',
