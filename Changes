@@ -1,5 +1,7 @@
 Revision history for Perl extension App::envfile
 
+{{$NEXT}}
+
 0.06  Mon Oct 22 01:22:09 2012
     - repacking (suggested by miyagawa++)
 
