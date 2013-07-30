@@ -102,6 +102,22 @@ test_parse_envfile(
 FOO="bar"
 ENV
 
+test_parse_envfile(
+    expects => { 'FOO' => "'bar", 'BAR' => "foo'" },
+    desc    => 'single quoted value, no pair',
+    input   => << 'ENV');
+FOO='bar
+BAR=foo'
+ENV
+
+test_parse_envfile(
+    expects => { 'FOO' => '"bar', 'BAR' => 'foo"' },
+    desc    => 'double quoted value, no pair',
+    input   => << 'ENV');
+FOO="bar
+BAR=foo"
+ENV
+
 runtest 'file not found' => sub {
     eval { App::envfile->new->parse_envfile('foo.bar') };
     ok $@, 'throw error';
