@@ -84,6 +84,7 @@ sub _slurp {
 sub _parse_line {
     my ($self, $line) = @_;
     my ($key, $value) = map { my $str = $_; $str =~ s/^\s+|\s+$//g; $str } split '=', $line, 2;
+    $value =~ s/^['"](.*)['"]$/$1/;
     return $key, $value;
 }
 
